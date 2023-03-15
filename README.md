@@ -1,6 +1,8 @@
 # LMCF-Project1
 Group Members:
 
+-----------------------------------
+
 Luke Makishima
 
 LukeMakishima@csu.fullerton.edu
