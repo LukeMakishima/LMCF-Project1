@@ -145,17 +145,37 @@ public:
 // Algorithm that sorts disks using the alternate algorithm.
 sorted_disks sort_alternate(const disk_state& before) {
 	int numOfSwap = 0;                                                                      //record # of step swap
- 
-          }
-
+	//int state; We can make changes on before
+  	disk_state after = before;
+  	//For loop encompasses all light disks -> We can effectively move all of one disk - O(n)
+  	for (size_t i = 0; i < after.total_count() / 2; i++) {
+    	//For ever light in total until end - O(n)
+    	  for (size_t j = i; j < after.total_count() - 1; j++) {
+          //swap if color is 1,0 so 110 -> 101
+            if (after.get(j) > after.get(j + 1)) {
+              after.swap(j);
+              numOfSwap++;
+      	    }
+    	  }
+        }
   return sorted_disks(disk_state(state), numOfSwap);
 }
 
 
 // Algorithm that sorts disks using the lawnmower algorithm.
 sorted_disks sort_lawnmower(const disk_state& before) {
-  	
-	  }
-
+  	int numOfSwap = 0;
+  	disk_state after = before;
+  	//Loop between the whole vector - O(n)
+  	for (size_t i = 0; i < after.total_count() - 1; i++) {
+    	  //Loops back and fourth between the total of it and perform swaps when needed - O(n)
+    	  for (size_t j = i; j < after.total_count() - 1; j++) {
+      	    //Swap like before but remember we are going back and forth
+      	    if (after.get(j) > after.get(j + 1)) {
+              after.swap(j);
+              numOfSwap++;
+            }
+          } 
+        }
   return sorted_disks(disk_state(state), numOfSwap);
 }
