@@ -112,7 +112,16 @@ public:
   // Return true when this disk_state is fully sorted, with all light disks on
   // the left (low indices) and all dark disks on the right (high indices).
   bool is_sorted() const {
-      
+      //Loops through total list O(n)
+      for (size_t i = 0; i < total_count() / 2; i++) {
+        //Next we loop through list and see if the half is sorted.
+        //Essentially, loop through first half of list and if theres any darks, it is not sorted
+        if (i < total_count() / 2) {
+          if(_colors[i] == DISK_DARK) {
+            return false;
+          }
+        }
+      }
       return true;
   }
 };
@@ -146,14 +155,14 @@ public:
 sorted_disks sort_alternate(const disk_state& before) {
 	int numOfSwap = 0;                                                                      //record # of step swap
 	//int state; We can make changes on before
-  	disk_state after = before;
+  	disk_state state = before;
   	//For loop encompasses all light disks -> We can effectively move all of one disk - O(n)
-  	for (size_t i = 0; i < after.total_count() / 2; i++) {
+  	for (size_t i = 0; i < state.total_count() / 2; i++) {
     	//For ever light in total until end - O(n)
-    	  for (size_t j = i; j < after.total_count() - 1; j++) {
+    	  for (size_t j = i; j < state.total_count() - 1; j++) {
           //swap if color is 1,0 so 110 -> 101
-            if (after.get(j) > after.get(j + 1)) {
-              after.swap(j);
+            if (state.get(j) > state.get(j + 1)) {
+              state.swap(j);
               numOfSwap++;
       	    }
     	  }
@@ -165,14 +174,14 @@ sorted_disks sort_alternate(const disk_state& before) {
 // Algorithm that sorts disks using the lawnmower algorithm.
 sorted_disks sort_lawnmower(const disk_state& before) {
   	int numOfSwap = 0;
-  	disk_state after = before;
+  	disk_state state = before;
   	//Loop between the whole vector - O(n)
-  	for (size_t i = 0; i < after.total_count() - 1; i++) {
+  	for (size_t i = 0; i < state.total_count() - 1; i++) {
     	  //Loops back and fourth between the total of it and perform swaps when needed - O(n)
-    	  for (size_t j = i; j < after.total_count() - 1; j++) {
+    	  for (size_t j = i; j < state.total_count() - 1; j++) {
       	    //Swap like before but remember we are going back and forth
-      	    if (after.get(j) > after.get(j + 1)) {
-              after.swap(j);
+      	    if (state.get(j) > state.get(j + 1)) {
+              state.swap(j);
               numOfSwap++;
             }
           } 
